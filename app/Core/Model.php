@@ -129,29 +129,22 @@ abstract class Model
 
 	public function count()
 	{
-		
+
 		$table = $this->table;
 
 		$sql = "SELECT COUNT(*) FROM $table";
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->execute();
 		$row = $stmt->fetch(\PDO::FETCH_ASSOC);
-		
+
 		$count = $row['COUNT(*)'];
 
 		return $count;
 	}
 
-	/**
-     * Handle dynamic static method calls into the method.
-     *
-     * @param  string  $method
-     * @param  array  $parameters
-     * @return mixed
-     */
-    public static function __callStatic($method, $parameters)
-    {
+	public static function __callStatic($method, $parameters)
+	{
 		$method = ltrim($method, '_');
-        return (new static)->$method(...$parameters);
-    }
+		return (new static)->$method(...$parameters);
+	}
 }
