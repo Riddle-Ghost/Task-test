@@ -8,7 +8,6 @@ use Plasticbrain\FlashMessages\FlashMessages;
 abstract class Controller
 {
 
-	protected $model;
 	protected $view;
 	protected $flash;
 
