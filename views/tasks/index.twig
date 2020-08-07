@@ -1,0 +1,86 @@
+{% extends "layouts/layout.twig" %}
+
+{% block title %}Tasks List{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-end mb-3">
+    <a class="btn btn-success" href="/tasks/add">Добавить</a>
+    <div class="col-lg-6 text-right">
+      <form action="/" method="get">
+
+        <div class="input-group">
+          <select class="custom-select" id="sort" name="sort">
+            <option value="id" {{ data.request.sort == 'id' ? 'selected' : '' }}>По ID</option>
+            <option value="email" {{ data.request.sort == 'email' ? 'selected' : '' }}>По почте</option>
+            <option value="status" {{ data.request.sort == 'status' ? 'selected' : '' }}>По статусу</option>
+          </select>
+          <select class="custom-select" id="order" name="order">
+            <option value="desc" {{ data.request.order == 'desc' ? 'selected' : '' }}>По убыванию</option>
+            <option value="asc" {{ data.request.order == 'asc' ? 'selected' : '' }}>По возрастанию</option>
+          </select>
+          <div class="input-group-append">
+            <button class="btn btn-outline-primary" type="submit">Применить</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Имя</th>
+          <th scope="col">E-mail</th>
+          <th scope="col">Текст</th>
+          <th scope="col">Статус</th>
+
+          {% if is_admin() %}
+            <th scope="col">Контроль</th>
+          {% endif %}
+
+        </tr>
+      </thead>
+      <tbody>
+        {% for task in data.tasks %}
+          <tr>
+            <td>{{ task.id }}</td>
+            <td>{{ task.name }}</td>
+            <td>{{ task.email }}</td>
+            <td>{{ task.text }}</td>
+
+            {% for key, option in data.statuses %}
+                {% if task.status is same as(key) %}
+                    <td>
+                      {{ option }}
+                      {{ task.edited ? '<p class="text-info">*отредактировано администратором</p>' : ''}}
+                    </td>
+                {% endif %}
+            {% endfor %}
+
+            {% if is_admin() %}
+              <td>
+                <a class="btn btn-info" href="/tasks/edit?id={{ task.id }}">Редактировать</a>
+              </td>
+            {% endif %}
+
+          </tr>
+        {% else %}
+          <tr>
+            <td colspan="5">
+              <h5 class="text-center m-0">Тасков пока нет</h5>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% if data.paginator %}
+    {{ include('partials/paginator.twig') }}
+  {% endif %}
+
+</div>
+{% endblock %}
