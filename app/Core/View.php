@@ -30,7 +30,7 @@ class View
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-	public function generate($name, array $data = [])
+	public function generate(string $name, array $data = [])
     {
 
         return $this->twig->render($name . '.twig', ['data' => $data]);
