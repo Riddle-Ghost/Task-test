@@ -86,7 +86,7 @@ abstract class Model
 		return $this->pdo->lastInsertId();
 	}
 
-	public function update($id, array $array)
+	public function update(int $id, array $array)
 	{
 		
 		$table = $this->table;
