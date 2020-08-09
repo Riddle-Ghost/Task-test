@@ -14,11 +14,18 @@ class TasksController extends Controller
 
   public function index(Request $request)
   {
-
+    
     $page = $request->query->get('page') ?? 1;
-    $sort = $request->query->get('sort') ?? 'id';
-    $order = $request->query->get('order') ?? 'desc';
-    $limit = $request->query->get('limit') ?? 3;
+    $sort = $request->query->get('sort');
+    $order = $request->query->get('order');
+    $limit = 3;
+
+    if ( !in_array($sort, Task::SORT_COLUMNS) ) {
+      $sort = 'id';
+    }
+    if ( !in_array($order, ['asc', 'desc']) ) {
+      $order = 'desc';
+    }
 
     $urlPattern = "/?sort=$sort&order=$order&page=(:num)";
     $count = Task::_count();

@@ -17,6 +17,12 @@ class Task extends Model
     self::STATUS_COMPLETED => 'Выполнено',
   ];
 
+  public const SORT_COLUMNS = [
+    'id',
+    'email',
+    'status',
+  ];
+
 
   public function new(array $data)
   {
