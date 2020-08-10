@@ -19,6 +19,7 @@ class Task extends Model
 
   public const SORT_COLUMNS = [
     'id',
+    'name',
     'email',
     'status',
   ];

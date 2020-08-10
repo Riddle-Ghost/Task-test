@@ -12,6 +12,7 @@
         <div class="input-group">
           <select class="custom-select" id="sort" name="sort">
             <option value="id" {{ data.request.sort == 'id' ? 'selected' : '' }}>По ID</option>
+            <option value="name" {{ data.request.sort == 'name' ? 'selected' : '' }}>По имени</option>
             <option value="email" {{ data.request.sort == 'email' ? 'selected' : '' }}>По почте</option>
             <option value="status" {{ data.request.sort == 'status' ? 'selected' : '' }}>По статусу</option>
           </select>
